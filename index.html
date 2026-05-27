@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Blooming Vase</title>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  background: #c9c2b8;
+}
+
+/* 전체 화면 */
+.intro {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+
+  background-image: url("./background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 꽃 전체 묶음 */
+.flower-area {
+  position: absolute;
+
+  /*
+    꽃 전체 위치 조절
+    위로 올리고 싶으면 bottom 값을 키우기
+    아래로 내리고 싶으면 bottom 값을 줄이기
+  */
+  left: 50%;
+  bottom: 23vh;
+  transform: translateX(-50%);
+
+  width: 360px;
+  height: 390px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 꽃 공통 */
+.flower {
+  position: absolute;
+  opacity: 0;
+  transform-origin: bottom center;
+  will-change: transform, opacity;
+}
+
+/* 
+  flower-4 : 주황 / 분홍 / 노랑 꽃 묶음
+  크기 조절은 width 값 변경
+*/
+.flower4 {
+  width: 300px;
+  left: 60px;
+  bottom: 150px;
+  z-index: 1;
+  transform: rotate(-4deg);
+}
+
+/* 
+  flower-5 : 왼쪽 봉오리
+*/
+.flower5 {
+  width: 200px;
+  left: 20px;
+  bottom: 230px;
+  z-index: 2;
+  transform: rotate(-18deg);
+}
+
+/* 
+  flower-2 : 흰 난초
+*/
+.flower2 {
+  width: 380px;
+  left: 65px;
+  bottom: 230px;
+  z-index: 0;
+  transform: rotate(0deg);
+}
+
+/* 
+  flower-3 : 연분홍 둥근 꽃
+*/
+.flower3 {
+  width: 260px;
+  left: 35px;
+  bottom: 180px;
+  z-index: 4;
+  transform: rotate(-26deg);
+}
+
+/* 
+  flower-1 : 핑크 난초
+*/
+.flower1 {
+  width: 320px;
+  left: 25px;
+  bottom: -60px;
+  z-index: 5;
+  transform: rotate(0deg);
+}
+
+/* 화병 전체 화면 레이어 */
+.vase-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 10;
+  pointer-events: none;
+}
+
+/* 타이틀 */
+.title {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family:"Noto Serif KR", serif;
+  font-size: 38px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.76);
+  letter-spacing: -0.4px;
+  opacity: 0;
+  z-index: 20;
+}
+
+</style>
+</head>
+
+<body>
+
+<section class="intro">
+
+  <h1 class="title">화병 위의 시간들</h1>
+
+  <!-- 꽃 -->
+  <div class="flower-area">
+    <img src="./flower-1.png" class="flower flower1" alt="flower">
+    <img src="./flower-3.png" class="flower flower3" alt="flower">
+    <img src="./flower-4.png" class="flower flower4" alt="flower">
+    <img src="./flower-5.png" class="flower flower5" alt="flower">
+    <img src="./flower-2.png" class="flower flower2" alt="flower">
+  </div>
+
+  <!-- 화병 앞 레이어 -->
+  <img src="./vase.png" class="vase-layer" alt="vase">
+
+</section>
+
+<script>
+gsap.to(".title", {
+  duration: 1.2,
+  opacity: 1,
+  y: -8,
+  delay: 0.2,
+  ease: "power2.out"
+});
+
+/*
+  꽃이 위에서 아래로 하나씩 꽂히는 애니메이션
+  scale을 제거해서 CSS width 값이 그대로 반영되게 함
+*/
+gsap.fromTo(".flower",
+  {
+    opacity: 0,
+    y: -170
+  },
+  {
+    duration: 1.15,
+    opacity: 1,
+    y: 0,
+    stagger: 0.38,
+    delay: 0.7,
+    ease: "power3.out"
+  }
+);
+</script>
+
+</body>
+</html>
